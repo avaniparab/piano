@@ -8,7 +8,7 @@ let keyPiano = {
     "7" : 'audio/7.mp3',
     "8" : 'audio/8.mp3',
     "9" : 'audio/9.mp3',
-    "0" : 'audio/0.mp3',
+    "0" : 'audio/10.mp3',
     "a" : 'audio/a.mp3',
     "b" : 'audio/b.mp3',
     "c" : 'audio/c.mp3',
@@ -20,15 +20,16 @@ let keyPiano = {
 document.addEventListener('keydown',
     (event) => playPiano(event.key)
 );
-function playPiano(key){
-    audio = new Audio(keyPiano[key]);
+function playPiano(key) {
+    if (!keyPiano[key]) return;
+    let audio = new Audio(keyPiano[key]);
     audio.play();
-    let keyPiano = document.querySelector(`[data-key="${key}"]`);
-    if(keyClick){
-        keyClick.classList.remove('active');
-        const removeActive = setInterval(() => {
-            keyClick.classList.remove('active')
-        }, 500);
+    let keyClick = document.querySelector(`[data-key="${key}"]`);
+    if (keyClick) {
+        keyClick.classList.add("active");
+        setTimeout(() => {
+            keyClick.classList.remove("active");
+        }, 200);
     }
 }
 let keys = document.querySelectorAll('.key');
